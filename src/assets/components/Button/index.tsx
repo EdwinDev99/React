@@ -1,30 +1,26 @@
 import { ReactNode } from "react";
-import styled from "styled-components";
+import styles from "./Button.module.css";
 
-type PropsBtn = {
-  isLoading?: boolean;
-};
-
-const Btn = styled.button<PropsBtn>`
-  background-color: ${(props) => (props.isLoading ? "gray" : "red")};
-`;
+import { LuSend } from "react-icons/lu";
+import { FaCheck } from "react-icons/fa6";
 
 type Props = {
   children: ReactNode;
-  isLoading?: boolean;
   onClick: () => void;
+  send?: boolean;
 };
 
-function Button({ children, isLoading = false, onClick }: Props) {
+// type PropsBtn = {
+//   sent: boolean;
+// };
+
+function Button({ children, onClick, send }: Props) {
+  const styleBtn = [`${styles.button}`].join(" ");
   return (
-    <Btn
-      isLoading={isLoading}
-      disabled={isLoading}
-      onClick={onClick}
-      type="button"
-    >
-      {isLoading ? "Cargando..." : children}
-    </Btn>
+    <button type="button" onClick={onClick} className={styleBtn}>
+      {send ? "Enviado" : children}
+      {send ? <FaCheck /> : <LuSend color="whithe" />}
+    </button>
   );
 }
 

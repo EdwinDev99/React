@@ -1,15 +1,16 @@
 import { useState } from "react";
-import Alert from "./assets/components/Alert";
+import Button from "./assets/components/Button";
 
 function App() {
-  const [status, setStatus] = useState(true);
-  const toggleStatus = () => {
-    setStatus(!status);
+  const [send, setSend] = useState(false);
+  const handleClick = () => {
+    setSend(true);
   };
+
   return (
-    <Alert onClick={toggleStatus} status={status}>
-      Alert
-    </Alert>
+    <Button send={send} onClick={handleClick}>
+      Enviar
+    </Button>
   );
 }
 export default App;
