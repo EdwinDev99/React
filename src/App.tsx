@@ -2,6 +2,9 @@ import Card, { CardBody } from "./assets/components/card";
 import List from "./assets/components/List";
 import Button from "./assets/components/Button";
 import { useState } from "react";
+
+import { AiOutlineLike } from "react-icons/ai";
+
 /**
  * thurty =
  * falsy = 0, "",  false.undefined ,null
@@ -46,8 +49,13 @@ function App() {
 
   return (
     <Card>
-      <Button onClick={addMinion}>agregar</Button>
-      <Button onClick={delMinion}>aliminar</Button>
+      <Button onClick={addMinion}>
+        agregar
+        <AiOutlineLike color="blue" size={40} />
+      </Button>
+      <Button onClick={delMinion}>
+        aliminar <AiOutlineLike color="blue" size={40} />
+      </Button>
       <List data={data}></List>
     </Card>
   );
