@@ -8,30 +8,48 @@ import { useState } from "react";
  */
 
 function App() {
-  const list = ["goku", "tanjiro", "gohan", "picoro"];
-  const handleSelect = (elemento: string) => {
-    console.log("imprimiendo", elemento);
+  // const list = ["goku", "tanjiro", "gohan", "picoro"];
+  // const handleSelect = (elemento: string) => {
+  //   console.log("imprimiendo", elemento);
+  // };
+
+  // const [isLoading, setIsLoading] = useState(false);
+  // const handleclick = () => {
+  //   setIsLoading(!isLoading);
+  // };
+
+  // return (
+  //   <>
+  //     <Card>
+  //       <CardBody title="Hola mundo" parrafo="Este es el texto" />
+  //       {list.length ? (
+  //         <List data={list} onSelect={handleSelect} />
+  //       ) : (
+  //         "no hay texto"
+  //       )}
+  //     </Card>
+  //     <Button isLoadin={isLoading} onClick={handleclick}>
+  //       Hola mundo
+  //     </Button>
+  //   </>
+  // );
+
+  const [data, setData] = useState(["goku", "tanjiro", "gohan", "picoro"]);
+
+  const addMinion = () => {
+    setData([...data, "minion"]);
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-  const handleclick = () => {
-    setIsLoading(!isLoading);
+  const delMinion = () => {
+    setData(data.slice(0, -1));
   };
 
   return (
-    <>
-      <Card>
-        <CardBody title="Hola mundo" parrafo="Este es el texto" />
-        {list.length ? (
-          <List data={list} onSelect={handleSelect} />
-        ) : (
-          "no hay texto"
-        )}
-      </Card>
-      <Button isLoadin={isLoading} onClick={handleclick}>
-        Hola mundo
-      </Button>
-    </>
+    <Card>
+      <Button onClick={addMinion}>agregar</Button>
+      <Button onClick={delMinion}>aliminar</Button>
+      <List data={data}></List>
+    </Card>
   );
 }
 
