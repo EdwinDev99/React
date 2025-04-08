@@ -1,0 +1,17 @@
+.alert {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border-width: 1px;
+  color: white;
+}
+
+.alertPrimary {
+  background-color: red;
+  color: white;
+  border-color: darkred;
+}
+
+.alertSecondary {
+  background-color: blue;
+  border-color: darkblue;
+}
