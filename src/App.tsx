@@ -1,16 +1,27 @@
 import { useState } from "react";
+import ProductDaschboard from "./assets/components/ProductDaschboard";
+import ProductList from "./assets/components/ProductList";
 import Button from "./assets/components/Button";
 
 function App() {
-  const [send, setSend] = useState(false);
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      name: "iphone",
+    },
+  ]);
   const handleClick = () => {
-    setSend(true);
+    const newProduct = { id: 2, name: "Android" };
+
+    setProducts([...products, newProduct]);
   };
 
   return (
-    <Button send={send} onClick={handleClick}>
-      Enviar
-    </Button>
+    <div>
+      <ProductDaschboard amount={products.length} />
+      <ProductList products={products} />
+      <Button onClick={handleClick}>enviar</Button>
+    </div>
   );
 }
 export default App;
