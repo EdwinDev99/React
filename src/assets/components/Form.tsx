@@ -1,34 +1,45 @@
-import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form";
 
+type Form = {
+  name: string;
+  lastname: string;
+};
 type Props = {};
 
 function Form({}: Props) {
-  const [user, setUser] = useState({ name: "", lastName: "" });
-  const handlesubmit = (event: FormEvent) => {
-    event.preventDefault();
-    console.log(user);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Form>();
+
+  const onSubmit = (data: Form) => console.log(data);
+
   return (
-    <form onSubmit={handlesubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3">
         <label htmlFor="" className="form-label">
           Nombre
         </label>
         <input
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          {...register("name", {
+            minLength: {
+              value: 3,
+              message: "El largo minimo es 3",
+            },
+          })}
           type="text"
           id="name"
           className="form-control"
         />
+        {errors?.name && <p>{errors?.name?.message}</p>}
       </div>
       <div className="mb-3">
         <label htmlFor="" className="form-label">
           Apellido
         </label>
         <input
-          value={user.lastName}
-          onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+          {...register("lastname")}
           type="text"
           id="lastname"
           className="form-control"
