@@ -11,18 +11,26 @@ export default function () {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    const url = "https://jsonplaceholder.typicode.com/users";
-    setLoading(true);
-    fetch(url)
-      .then((response) => {
+    const controller = new AbortController(); // nos permite cancelar la efecucion de fetch
+    const { signal } = controller;
+    async function hook() {
+      const url = "https://jsonplaceholder.typicode.com/users";
+      setLoading(true);
+      setError(undefined);
+
+      try {
+        const response = await fetch(url, { signal });
         if (!response.ok) throw new Error(`${response.status}`);
-        return response.json() as Promise<User[]>;
-      })
-      .then((data) => {
+        const data: User[] = await response.json();
         setUsers(data);
-      })
-      .catch((error: Error) => setError(error.message))
-      .finally(() => setLoading(false));
+      } catch (error) {
+        setError((error as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    hook();
+    return () => controller.abort();
   }, []);
   return { users, loading, error };
 }
