@@ -1,7 +1,18 @@
-import useUser from "./hooks/useUser";
+import useHttpData from "./hooks/useHttpData";
+
+type User = {
+  id?: string | number;
+  name: string;
+};
 
 function App() {
-  const { users, loading, error } = useUser();
+  const url = "https://jsonplaceholder.typicode.com/users";
+  const {
+    data: users,
+    loading,
+    error,
+    updateData: updateUser,
+  } = useHttpData<User>(url);
 
   if (loading) {
     return <p>Cargango....</p>;
@@ -13,6 +24,9 @@ function App() {
 
   return (
     <ul>
+      <button onClick={() => updateUser({ id: 1, name: "chanchito feliz" })}>
+        enviar
+      </button>
       {users.map((u) => (
         <li key={u.id}>{u.name}</li>
       ))}
